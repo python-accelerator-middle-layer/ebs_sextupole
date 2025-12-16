@@ -1,0 +1,3 @@
+[submodule "MagnetModel"]
+	path = MagnetModel
+	url = https://gitlab.esrf.fr/accelerators/Magnets/MagnetModel

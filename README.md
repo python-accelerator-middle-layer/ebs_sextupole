@@ -1,2 +1,3 @@
-# ebs_sextupole
-PyAML extension for EBS sextupole magnet model
+# ebs-sextupole
+
+EBS sextupole magnet model extetnsion for Python Accelerator Middle Layer

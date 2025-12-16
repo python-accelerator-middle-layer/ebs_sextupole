@@ -4,7 +4,7 @@ from ebs_sextupole.sextu_model import SextuModel, ConfigModel as SextuConfigMode
 
 brho = 6e9 / speed_of_light
 
-fileDir = "MagnetModel/Parameters/"
+fileDir = "/operation/control/infra/equipment/magnets/MagnetModel/Parameters/"
 S = ebs_sextupole_bind.mag_init(
     f"{fileDir}SD1_meas_strengths.csv", f"{fileDir}SD1_params.csv", "SD1-16196"
 )

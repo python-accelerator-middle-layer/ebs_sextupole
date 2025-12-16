@@ -6,3 +6,9 @@ requires = [
     "pybind11",
 ]
 build-backend = "setuptools.build_meta"
+
+dependencies = [
+    "numpy",
+    "scipy",
+    "accelerator-middle-layer",
+]

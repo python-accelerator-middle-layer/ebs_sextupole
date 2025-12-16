@@ -8,7 +8,6 @@ namespace py = pybind11;
 
 void *mag_create(std::string strength_file_name, std::string param_file_name, std::string mag_s_n) {
 
-    std::cout << "Sextupole::init" << std::endl;
     MagnetModel::Sextupole *sextu = new MagnetModel::Sextupole();
     sextu->init(strength_file_name,param_file_name,mag_s_n);
     return sextu;

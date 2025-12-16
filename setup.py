@@ -16,7 +16,7 @@ def get_pybind_include():
     return pybind11.get_include()
 
 cpp_sources = [ 
-                "src/ebs_sextupole/sextupole_pybind.cpp",
+                "src/sextupole_pybind.cpp",
                 "MagnetModel/src/Sextupole.cpp",
                 "MagnetModel/src/Magnet.cpp",
                 "MagnetModel/src/Multipole.cpp",
@@ -48,13 +48,14 @@ extension = Extension(
 # setuptools configuration
 # ----------------------------------------------------------------------
 setup(
-    name="ebs_sextupole",
-    version="0.0.0",
+    name="ebs-sextupole",
+    version="0.0.1",
     description="EBS Sextupole magnet model binding for PyAML",
     author="Jean Luc PONS",
-    packages=find_packages(),
+    packages=["ebs_sextupole"],
+    package_dir={"ebs_sextupole":"src/ebs_sextupole"},
     ext_modules=[extension],
-    python_requires=">=3.8",
+    python_requires=">=3.12",
     setup_requires=["wheel"],
     zip_safe=False,
 )

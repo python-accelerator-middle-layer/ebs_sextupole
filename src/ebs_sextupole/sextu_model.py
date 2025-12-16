@@ -6,8 +6,11 @@ from pyaml.common.element import __pyaml_repr__
 from pyaml.common.exception import PyAMLException
 from pyaml.control.deviceaccess import DeviceAccess
 from pyaml.magnet.model import MagnetModel
+from pyaml.configuration import get_root_folder
 
 import ebs_sextupole_bind
+import os
+from pathlib import Path
 
 # Define the main class name for this module
 PYAMLCLASS = "SextuModel"
@@ -24,7 +27,7 @@ class ConfigModel(BaseModel):
     param_file: str
         Parameter file name
     serial_number: str
-        Seriai number
+        Serial number
     powerconverters: list[DeviceAccess | None]
         Power converters
     """
@@ -45,15 +48,26 @@ class SextuModel(MagnetModel):
         self.__nbPS: int = len(cfg.powerconverters)
         if( self.__nbPS != 5 ):
             raise PyAMLException(f"SextuModel {self._cfg.serial_number}: 5 power converters expected")
-        self.S = ebs_sextupole_bind.mag_init(self._cfg.strength_data,self._cfg.param_file,self._cfg.serial_number)
+
+        strData = self.__get_path(Path(self._cfg.strength_data))
+        strParam = self.__get_path(Path(self._cfg.param_file))
+
+        self._S = ebs_sextupole_bind.mag_init(str(strData),str(strParam),self._cfg.serial_number)
         self.brho = np.nan
 
+    def __get_path(self,p):
+        if os.path.isabs(p):
+            return p
+        else:
+            root = get_root_folder()
+            return root / p
+
     def compute_hardware_values(self, strengths: np.array) -> np.array:
-        curs = ebs_sextupole_bind.compute_currents(self.S,self._brho,strengths)
+        curs = ebs_sextupole_bind.compute_currents(self._S,self._brho,strengths)
         return np.array(curs)
 
     def compute_strengths(self, currents: np.array) -> np.array:
-        strs = ebs_sextupole_bind.compute_strengths(self.S,1./self._brho,currents)
+        strs = ebs_sextupole_bind.compute_strengths(self._S,1./self._brho,currents)
         return np.array(strs)
 
     def get_strength_units(self) -> list[str]:

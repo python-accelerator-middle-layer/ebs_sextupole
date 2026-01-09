@@ -1,7 +1,10 @@
 # ebs-sextupole
 
 EBS sextupole magnet model extetnsion for Python Accelerator Middle Layer.
-This module binds C++ EBS Sextupole magnet model to pyAML `MagnetModel`.
+This module binds C++ [EBS Sextupole magnet model](https://proceedings.jacow.org/ipac2021/papers/tupab369.pdf
+) to pyAML `MagnetModel`.
+
+![EBS sextupole](./docs/sextupole.png)
 
 Configuration exmaple:
 ```yaml
